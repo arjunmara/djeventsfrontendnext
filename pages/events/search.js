@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Layout from '@/components/Layout'
 import EventItem from '@/components/EventItem'
 import { API_URL } from '@/config/index';
-export default function EventsPage({events}) {
+export default function SearchPage({events}) {
   return (
     <Layout> 
       <h1>Events</h1>
@@ -15,13 +15,12 @@ export default function EventsPage({events}) {
 }
 
 
-export async function getStaticProps (){
-  const res = await fetch(`${API_URL}/events?_sort=date:ASC`)
+export async function getServerSideProps ({query:{term}}){
+  const res = await fetch(`${API_URL}/events?name_contains=${term}`)
   const events = await res.json()
   return {
     props:{
       events
     },
-    revalidate: 1
   }
 }
