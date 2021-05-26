@@ -12,7 +12,6 @@ export default async (req, res) => {
       body: JSON.stringify({ identifier, password }),
     });
     const data = await strapiRes.json();
-    console.log(data.jwt);
     if (strapiRes.ok) {
       //Set the cookie
       res.setHeader(
